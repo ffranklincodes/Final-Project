@@ -1,0 +1,15 @@
+<div class="page_navigation_container">
+    <% if (page > 1) { %>
+        <a href="/admin-manage-messages?page=<%= page - 1 %>"> &lt; Previous </a>
+    <% } else { %>
+        <span class="disabled">&lt;Previous </span>
+    <% } %>
+
+    <span class="page-number">[<%= page %>]</span>
+
+    <% if (hasNextPage) { %>
+        <a href="/admin-manage-messages?page=<%= page + 1 %>">Next &gt;</a>
+    <% } else { %>
+        <span class="disabled">Next &gt;</span>
+    <% } %>
+</div>

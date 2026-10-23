@@ -1,0 +1,256 @@
+body {
+    background-color: #FAFAF7;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+
+.main-navbar {
+    width: 100%;
+}
+
+.logo {
+    width: 40px;
+}
+
+.logo_smaller {
+    width: 30px;
+}
+
+.main-navbar ul {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #034748;
+    color: #FFFFFF;
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin: 0;
+}
+
+.main-navbar a {
+    text-decoration: none;
+    color: #FFFFFF; 
+    font-size: 18px;
+}
+
+.main-navbar a:hover {
+    color: #EDAE49;
+}
+
+.main-navbar img:hover {
+    box-shadow: 0 0 0 2px #EDAE49;
+    border-radius: 5px;;
+}
+
+.main-navbar a.active {
+    color: #EDAE49;
+    text-decoration: underline;
+}
+
+.sub-navbar {
+    flex-shrink: 0;
+}
+
+.sub-navbar a {
+    text-decoration: none;
+    color: #034748;
+}
+
+.sub-navbar a:hover:not(.active) {
+    color: #034748;
+    text-decoration: underline;
+}
+
+.sub-navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.sub-navbar-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #E37434;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.text_label {
+  height: 200px;
+}
+
+.page_title {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+input:not([type="checkbox"]), 
+select {
+    flex: 0 0 50%;
+    height: 60px;
+    padding: 3px;
+    box-sizing: border-box;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid black;
+}
+
+
+.user-dashboard-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.teacher-home-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.activity-box {
+    grid-row: 3;
+    outline: solid 2px green;
+    border-radius: 20px;
+}
+
+
+.messages-box {
+    grid-row: 2;
+    outline: solid 2px green;
+    border-radius: 20px;
+    margin: 20px 0;
+}
+
+.course-box {
+    grid-column: 2;
+    grid-row: 2;
+    outline: 2px solid green;
+    width: max-content;
+    border-radius: 5px;
+    padding: 10px;
+    justify-self: right;
+    margin: 20px 0;
+}
+
+.course-box table {
+    width: 300px;
+}
+
+.popup_button {
+    position: relative;
+    display: block;
+    margin: 20px 0px auto;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    border: 1px solid #e58148;
+    background-color: #e58148;
+    font-weight: bold;
+    text-align: center;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.form_container {
+    font-family: 'Poppins', sans-serif; 
+    display: flex;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 500px;
+}
+
+.form_container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 5px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #999;
+    background-color: #FAFAF7;
+}
+
+.input-container label {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    transition: 0.2s;
+}
+
+.input-container button {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 12px;
+    width: 15%;
+    border: none;
+    outline: none;
+    background-color: #FAFAF7;
+}
+
+.input-container input:focus + label,
+.input-container input:not(:placeholder-shown) + label {
+    top: -20px;
+    font-size: 12px;
+    color: grey;
+}
+
+.input-container input:focus {
+    border-bottom-color: #0F6B66;
+    border-bottom-width: 3px;
+}
+
+
+.page_navigation_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    a {
+        text-decoration: none;
+    }
+    
+}
+
+
+

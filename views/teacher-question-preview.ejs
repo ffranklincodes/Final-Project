@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worksheet Preview</title>
+    <%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/public/css/teacher.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/student.css" type="text/css">
+</head>
+<body>
+    <div class="task_container">
+        <div class="task_details">
+            
+        </div>
+        <div class="questions_container">
+            <div class="preview_question">
+                <% if (tableSource == "task_question") { %>
+                <p><%= question.task_question_stem %></p>    
+                <%} else { %>
+                <p><%=question.stem%></p>
+                <% } %>
+            </div>
+            <div class="form_container check_answer_form">
+                <form class="form_questions" action="/check-answer" method="POST">
+                    <% if (question.question_type == "Multiple Choice" || question.question_type == "True or False" || question.task_question_type == "Multiple Choice" || question.task_question_type == "True or False") { %>
+                    <div class="preview_options">
+                        <% question.options.forEach(function(option) { %>
+                        <div class="option_group">
+                            <label>
+                                <input type="radio" name="option" value="<%= option.ID %>" required><%=option.option_text%>
+                            </label>
+                        </div>
+                        <% }); %>
+                    </div>
+
+                    <%} else if (question.question_type == "Number" || question.task_question_type == "Number") { %>
+                        <div class="input_group" >
+                            <input type="number" name="option" required>
+                        </div>
+                    <% } %> 
+
+                    <input type="hidden" name="taskId" value="<%= task_id %>">
+                    <input type="hidden" name="questionId" value="<%= question.ID %>">
+
+                    <div class="submit_answer_button_container">
+                        <button type="button" class="submit_answer_button" data-correct-answer = "<%= correctAnswer %>" onclick="checkPreviewAnswer(this)"> Submit Answer</button>
+                    </div>
+                    <span class="answer_result"></span>
+                </form>
+            </div>
+        </div>
+
+    <script src="/public/js/questions.js"></script>
+</body>
+</html>

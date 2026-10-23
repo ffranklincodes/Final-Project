@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Messages - Limitless Mathematics</title>
+    <%- include('partials/header.ejs') %>
+        <link rel="stylesheet" href="/public/css/teacher.css" type="text/css" />
+        <link rel="stylesheet" href="/public/css/popup.css" type="text/css" />
+        <link rel="stylesheet" href="/public/css/admin.css" type="text/css" />
+</head>
+
+<body>
+    <%- include('partials/member-admin-navbar.ejs') %>
+
+        <main class="page_container admin-messages-page">
+            <div class="page-heading">
+                <div>
+                    <h1>Manage Messages</h1>
+                    <p>View and manage queries submitted by users.</p>
+                </div>
+            </div>
+
+            <section class="message-summary">
+
+                <div class="summary-card">
+                    <h3>New Messages</h3>
+                    <p class="summary-number"><%=unread%></p>
+                    <p>Unread</p>
+                </div>
+
+                <div class="summary-card">
+                    <h3>In Progress</h3>
+                    <p class="summary-number"><%=in_progress%></p>
+                    <p>Unresolved</p>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Closed</h3>
+                    <p class="summary-number"><%=resolved%></p>
+                    <p>Resolved</p>
+                </div>
+            </section>
+
+            <section class="messages-section">
+                <h2>Recent Messages</h2>
+                
+                <div class="page_navigation_container">
+                    <% if (page > 1) { %>
+                        <a href="/admin-manage-messages?page=<%= page - 1 %>"> &lt; Previous </a>
+                    <% } else { %>
+                        <span class="disabled">&lt;Previous </span>
+                    <% } %>
+
+                    <span class="page-number">[<%= page %>]</span>
+
+                    <% if (hasNextPage) { %>
+                        <a href="/admin-manage-messages?page=<%= page + 1 %>">Next &gt;</a>
+                    <% } else { %>
+                        <span class="disabled">Next &gt;</span>
+                    <% } %>
+                </div>
+
+                <div class="messages-list">
+                    <% if (messages.length !=0) { var i=0; messages.forEach(function(message) { %>
+                        <div class="message-card">
+                            <div class="message-card-header">
+                                <div>
+                                    <p> <% if(message.status == "resolved") {%> Resolved  %>
+                                        <% } else if(message.status == "in_progress") {%> In Progress %>
+                                        <% } else if(message.status == "unread") {%> Unread <% } %>
+                                    </p>
+                                    <h3><%= message.name %></h3>
+                                    <p><%= message.role.charAt(0).toUpperCase() + message.role.slice(1) %> · <%=message.formatted_date %></p>
+                                </div>
+                            </div>
+
+                            <div class="message-card-body">
+                                <h5><%= message.subject %></h5>
+                                <p class="ellipses"> <%= message.message %></p>
+                            </div>
+
+                            <div class="message-card-footer">
+                                <button type="button" class="view_message_button" onclick="openPopup(message)"
+                                data-message-sender = "<%= message.name %>"
+                                data-message-email = "<%= message.email %>"
+                                data-message-subject = "<%= message.subject %>"
+                                data-message-role = "<%= message.role.charAt(0).toUpperCase() + message.role.slice(1) %>"
+                                data-message-location = "<%= message.city + ', ' + message.country %>"
+                                data-message-text = "<%= message.message %>"
+                                data-message-date = "<%= message.formatted_date %>"
+                                data-message-id = "<%= message.ID %>"
+                                >
+                                    View Message >
+                                </button>
+                            </div>
+
+                        </div>
+                <%i++;});%>
+                </div>
+                <% } %>     
+                <div class="page_navigation_container">
+                    <% if (page > 1) { %>
+                        <a href="/admin-manage-messages?page=<%= page - 1 %>"> &lt; Previous </a>
+                    <% } else { %>
+                        <span class="disabled">&lt;Previous </span>
+                    <% } %>
+
+                    <span class="page-number">[<%= page %>]</span>
+
+                    <% if (hasNextPage) { %>
+                        <a href="/admin-manage-messages?page=<%= page + 1 %>">Next &gt;</a>
+                    <% } else { %>
+                        <span class="disabled">Next &gt;</span>
+                    <% } %>
+                </div>           
+            </section>
+        </main>
+
+
+        <div class="mini_popup_container" id = "message">
+            <div class="popup_content popup_page_container">
+                <div class="message_container">
+                        <div class="row">
+                            <div class="sender_primary_details">
+                                <div>
+                                    <p>FROM</p>
+                                    <div id="message_sender"></div>
+                                    <div id="message_email"></div>
+                                    <div id="message_role"></div>
+                                </div>
+                            </div>
+                            <div class="message_time_details">
+                                <div>
+                                    <p style="display: inline-block;">RECEIVED: </p>
+                                    <div style="display: inline-block;" id="message_date"></div>
+                                </div>
+                                <div>
+                                    <p style="display: inline-block;">LOCATION: </p>
+                                    <div style="display: inline-block;" id="message_location"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message_text_container">
+                            <br>
+                            <p style="font-size: 20px; font-weight: bold;">MESSAGE</p>
+                            <div style="font-size: 15px; font-weight: bold;" id="message_subject"></div>
+                            <div id="message_text"></div>
+                        </div>
+                        <form action="/update-message-status" method="POST">
+
+                            <input type="hidden" name="message_id" class="message_id" id="message_id">
+
+                            <div class="buttons_container">
+                                <div class="message_buttons_container">
+                                    <button type="submit" value="resolved" name="status">
+                                        Mark as Resolved
+                                    </button>
+                                    <button type="submit" value="in_progress" name="status">
+                                        Mark as In Progress
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="/public/js/popup.js"></script>
+        <script src="/public/js/questions.js"></script>
+        <script src="/public/js/admin.js"></script>
+</body>
+
+</html>

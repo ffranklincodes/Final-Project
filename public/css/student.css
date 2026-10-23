@@ -1,0 +1,125 @@
+.student_main_dashboard {
+    display: flex;
+}
+
+.student_top_navbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    background-color: #034748;
+    height: 50px;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.top_navbar_left {
+    gap: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+.student_side_navbar {
+    position: fixed;
+    left: 0;
+    z-index: 1000;
+    width: 220px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0;
+    box-sizing: border-box;
+
+    background-color: #034748;
+}
+
+.student_side_navbar a {
+    padding: 0;
+    text-decoration: none;
+}
+
+.student_side_navbar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.student_side_navbar a {
+    color: #FFFFFF; 
+    font-size: 18px;
+}
+
+.main_student_content_container {
+    flex: 1;
+    margin-left: 220px;
+    margin-top: 50px;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+.join_course_button {
+    border-radius: 10px;
+    border: solid 2px #EDAE49;
+    background-color: #ead4b2;
+    height: 50px;
+}
+
+.student_tasks {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+}
+
+.task_container {
+    display: flex;
+    margin: 60px auto;
+    width: 60%;
+    box-sizing: border-box;
+    background-color: rgb(249, 243, 234);
+}
+
+.task_details {
+    display: flex;
+}
+
+.preview_question_header p {
+    margin: 0 20px;
+}
+.questions_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(249, 243, 234);
+}
+
+.preview_question {
+    width: 100%;
+    height: 100px;
+    padding: 0 20px;
+}
+
+.preview_options {
+    gap: 10px;
+    width: 100%;
+    background-color: rgb(249, 243, 234);
+    padding: 0 40px;
+}

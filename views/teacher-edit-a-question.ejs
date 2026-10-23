@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worksheet Builder - Add a question</title>
+    <link rel="stylesheet" href="/public/css/teacher.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/popup.css" type="text/css"> 
+</head>
+<body>
+    <header class="authoring-header">
+        <div class="left-authoring-header">
+            <button type="button" class="back-button" onclick="history.back()">←</button>
+            <h1>Question Title</h1>
+        </div>
+        <div class="authoring-header-right">
+            <button type="submit" form="question_form" class="save-button">Save</button>
+        </div>
+    </header>
+    <div class="add_a_question_container">
+        <div class="form_container">
+            <form action="/question_form" method="POST" id="question_form" onsubmit="saveQuestionContent(event)">
+                <div class="question_meta">
+                    <div class="question_form_details_left">
+                        <label for="description">Description:</label>
+                        <input id = "description" class="description" name="description">
+                    </div>
+                    <div class="question_form_details_right">
+                        <div class="question_form_group sharing-access">
+                            <label for="access">Sharing & Access:</label>
+                            <select id="access" class="access" name="access">
+                                <option value="public" selected>Public</option>
+                                <option value="private">Private</option>
+                                <option value="school">Shared Within School</option>
+                            </select>
+                        </div>
+                        <div class="question_form_group curriculum_strand">
+                            <label>Curriculum Strand:</label>
+                            <button type="button" id="strand_button" onclick="openPopup(strandPopup)">
+
+                            <% let found = false;
+                            strands.forEach(function(strand) { 
+                                if (strand.ID == questionResult[0].strand_id) {
+                                     found = true; %>
+                                    <%= strand.strand_name; %>
+                                <%} 
+                            }); %>   
+                            <% if (!found) { %>                   
+                            Select Maths Strand
+                            <%}%>
+                        
+                        </button>
+                        </div>
+                        <div class="question_form_group curriculum_strand">
+                            <label>Year Level:</label>
+                            <button type="button" id="year_level_button" onclick="openPopup(yearLevelPopup)">
+                                <% if (questionResult[0].year_level) { %>
+                                    Year <%=questionResult[0].year_level%>
+                                <% } else { %>
+                                    Select Year Level
+                                <%} %> 
+                                </button>
+                        </div>
+                        <div class="question_form_group points_number">
+                            <label>Points (Default 1):</label>
+                            <input type="number" name="points_value" id="points_value" class="points_value" value="1">
+                        </div>
+                        <div class="question_form_group question_type">
+                            <label for="question_type">Question Type:</label>
+                            <select id="question_type" class="question_type" name="question_type" required>
+                                <option value="" selected disabled hidden>Select question type</option>
+                                <option value="Multiple Choice" <%= questionResult[0].question_type === "Multiple Choice" ? "selected" : "" %>> Multiple Choice </option>
+                                <option value="True or False" <%= questionResult[0].question_type === "True or False" ? "selected" : "" %>>True / False</option>
+                                <option value="Number" <%= questionResult[0].question_type === "Number" ? "selected" : "" %>>Number Box</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="question_canvas" id="question_canvas" data-editing="<%= editing %>">
+                    <div class="question-block">
+                        <div
+                            class="question_content "
+                            contenteditable="true" id="question_content">
+                            <%= questionResult[0].stem %>
+                        </div>
+                    </div>
+
+                    <% if (questionOptions.length != 0) {var i = 0; %>
+                    <div class="answer-options" id="answer-options">
+                        <% questionOptions.forEach(function (option) { %>
+                        <div class="answer_option">
+                            <input type="radio" name="correct_answer" value="<%= i + 1%>" form="question_form" 
+                            <% if (option.is_correct == 1) { %>
+                                checked
+                            <% } %>
+                            required>
+                            <input type="text" placeholder="Option <%= i + 1%>" name="options" form="question_form" value="<%= option.option_text %>" required>
+                            <input type="hidden" name="option_ids" value="<%= option.ID%>">
+                        </div>
+                        <% i++; } );  %>
+                    </div>
+                    <% } else { %>
+                    <div class="answer-options" id="answer-number">
+                        <div class="answer_option">
+                            <input type="number" placeholder="Enter answer here" name="options" form="question_form" value="<%=answerResult[0].correct_answer%>" required>
+                            <input type="hidden" name="option_ids" value="<%= answerResult[0].ID%>">
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+
+                <input type="hidden" name="question_content" id="question_content_input" required>
+                <input type="hidden" name="course_id" value="<%=courseId%>">
+                <input type="hidden" name="task_id" value="<%=taskId%>">
+                <input type="hidden" name="question_id" value="<%=questionId%>">
+                <input type="hidden" name="status" value="<%=questionResult[0].status%>">
+        
+            </form>
+        </div>
+
+    </div>
+    <div class="mini_popup_container" id = "strand_popup_container">
+        <div class="popup_content popup_page_container">
+            
+            <div>
+                <p class="page_title" style="margin: 0 0; text-align: left; font-size: 200%;">Select Maths Strand</p>
+            </div>
+            <div class="strands_container">
+
+                <% strands.forEach(function (parent) {
+                    if (parent.parent_id === null) {%>
+
+                <div class="strand-group">
+                    <button type="button" class="strand_heading">
+                        <span>▶</span> <%=parent.strand_name %>
+                    </button>
+                    <div class="strand_children hidden">
+                            <% strands.forEach(function(child) {
+                                if(child.parent_id === parent.ID) { %>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="strand"  value="<%= child.ID%>" form="question_form"
+                                        <% if (child.ID == questionResult[0].strand_id) { %>
+                                            checked
+                                        <% } %> >
+                                        <%= child.strand_name%>
+                                    </label>
+                                </div>
+                            <% } }); %>
+                    </div>
+                </div>
+                <% } }); %>
+                <label>
+                    <button type="button" class="popup_button" id="strand_selected" onclick="updateButtonText('strand', 'strand_button')">Done</button>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="mini_popup_container" id = "year_level_popup_container">
+        <div class="popup_content popup_page_container">
+            
+            <div>
+                <p class="page_title" style="margin: 0 0; text-align: left; font-size: 200%;">Select Year Level Strand</h1>
+            </div>
+            <div>
+                <div>
+
+                    <% for (var i = 0; i < 13; i ++) { %>
+
+                        <% if (i == 0) { %>
+                            <label>Primary:</label>
+                        <% } else if (i == 6) { %>
+                            <br>
+                            <label>Intermediate:</label>
+                        <%} else if (i == 8) { %>
+                            <br>
+                            <label>Junior High School:</label>
+                        <%} else if (i == 10) { %>
+                            <br>
+                            <label>Senior High School:</label>
+                        <%} %>
+                        <label>
+                            <input type="radio" name="year_level" value="<%= i+1 %>" form="question_form"
+
+                            <% if (questionResult[0].year_level == i + 1) {%>
+                                checked
+                            <%}%>> Year <%=i + 1 %>
+                        </label>
+
+                    <% } %>
+                    <br>
+
+
+        <label>
+            <button type="button" class="popup_button" onclick="updateButtonText('year_level', 'year_level_button')">Done</button>
+        </label>
+
+                
+        </div>
+    </div>
+
+    <script src="/public/js/popup.js"></script>
+    <script src="/public/js/questions.js"></script>
+    
+</body>
+</html>

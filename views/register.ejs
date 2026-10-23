@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Register - Limitless Mathematics</title>
+        <%- include('partials/header.ejs') %>
+        <link href="/public/css/register.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <%- include('partials/navbar.ejs') %>
+        <div class="page_title">
+            <h1 >Create Account</h1>
+            <div>
+                <p style="text-align: center;">Already have an account?&nbsp;<a href="/login" class="link">LOG IN</a></p>
+            </div>
+        </div>
+        
+        
+        <div class="register-container">
+            <form action="/register" method="POST">    
+                <div class="form-group">
+                    <label for="role">Select a role:</label>
+                    <select id="role" name="role" onchange="loadRoleForm()" required>
+                        <option value="" disabled selected hidden></option>
+                        <option value="teacher">Teacher</option>
+                        <!-- <option value="parent">Parent/Caregiver</option> -->
+                        <option value="student">Student</option>
+                    </select>
+                    <br>
+                </div>
+                
+                <div id="role-form">
+
+                </div>
+            </form>
+        </div>
+    <script src="public/js/register.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= courseData[0].course_name %> Class
+    </title>
+    <%- include('partials/header.ejs') %>
+        <link href="/public/css/popup.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/public/css/teacher.css" type="text/css">
+</head>
+
+<body>
+    <%- include('partials/member-teacher-navbar.ejs') %>
+        <div class="user-dashboard-container">
+            <div class="teacher-home-container course-container">
+                <div class="row_horizontal">
+                    <div>
+                        <h1 class="page_title">
+                            <%= courseData[0].course_name %>
+                        </h1>
+                    </div>
+                    <div>
+                        <button type="button" class="popup_button" onclick="openPopup(miniPopup)">Create a new
+                            task</button>
+                    </div>
+
+                </div>
+                <div class="main-dashboard">
+                    <div class="course_info">
+                        <p>Course ID: <%=courseData[0].ID %>
+                        </p>
+                        <p>Join Code: <%=courseData[0].course_code %>
+                        </p>
+                    </div>
+                    <% if (taskData.length !=0) {var i=0; taskData.forEach(function(data) { %>
+                    <div class="task_card">
+                            <a href="/teacher-create-task/<%=data.course_id%>/<%=data.ID%>/create-worksheet/add-questions"
+                                class="no-text-decor">
+                                <p>
+                                    <%=data.task_name %>
+                                </p>
+                            </a>
+                            <div <% if (data.status=="draft" ) { %> style="font-style: italic;" <% } %>>
+                                    <%= data.status.charAt(0).toUpperCase() + data.status.slice(1) %>
+                            </div>
+                            <div class="form_container single_row">
+                                <form action="/update-task-status" method="POST">
+                                    <div>
+                                        <select name="status" class="form-select form-select-sm" <% if (data.status=="published" ) { %> disabled <% } %>>
+                                            <option value="published">Publish</option>
+                                            <option value="archived">Remove Draft</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" name="task_id" value = "<%=data.ID%>">
+                                    <input type="hidden" name="course_id" value = "<%=courseData[0].ID %>"> 
+
+                                    <div>
+                                        <button type="submit" <% if (data.status=="published" ) { %> disabled <% } %>>
+                                                Update Status</button>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+                    
+                    <% i++; }); %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="mini_popup_container" id="mini_popup_container">
+            <div class="popup_content popup_page_container">
+
+                <div>
+                    <h1 class="page_title" style="margin: 0 0; text-align: left; font-size: 200%;">Create a Worksheet
+                    </h1>
+                </div>
+                <div class="form_container">
+                    <form id="create-task-form" action="/create-worksheet" method="POST">
+
+                        <div class="input-container">
+                            <input type="text" name="title" id="title" placeholder=" " required>
+                            <label for="title">Title:</label>
+                        </div>
+
+                        <div class="input-container">
+                            <input type="text" name="description" id="description" placeholder=" " optional>
+                            <label for="description">Description (optional):</label>
+
+                        </div>
+
+                        <div class="input-container">
+                            <input type="text" name="summary" id="summary" placeholder=" " optional>
+                            <label for="summary">Summary (optional) </label>
+                        </div>
+
+                        <input type="hidden" name="course_id" value="<%= courseData[0].ID%>">
+                        <input type="hidden" name="task_type" value="worksheet">
+
+                        <button type="submit" class="popup_button" style="align-self: center;">Create Worksheet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="/public/js/popup.js"></script>
+
+</body>
+
+</html>

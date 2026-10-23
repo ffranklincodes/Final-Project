@@ -1,0 +1,73 @@
+<!--Teacher registration form -->
+<div id="teacher-form" class="teacher-form">     
+    <div class="form-group">
+        <label for="salutation">Salutation:</label>
+        <select id="salutation" name="salutation" required>
+            <option value="" disabled selected hidden>-</option>
+            <option value="mr">Mr</option>
+            <option value="mrs">Mrs</option>
+            <option value="ms">Ms</option>
+            <option value="dr">Dr</option>
+            <option value="mx">Mx</option>
+            <option value="other">Other</option>
+        </select>
+        <br>
+    </div>           
+    <div class="form-group">
+        <label for="firstName">First name:</label>
+        <input type="text" id ="firstName" name="firstName" minlength="2" maxlength="56" required>
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last name:</label>
+        <input type="text" id ="lastName" name="lastName" minlength="2" maxlength="56" required>
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="school">School:</label>
+        <input type="text" id="school" name="school" required>
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="email">Work Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+    </div>
+
+    <div class="form-group">
+        <label for="password1">Password:</label>
+        <input type="password" id="password1" name="password1" minlength="8" required>
+        <br>
+    </div>
+
+    <!-- <div class="form-group">
+        <label for="password2">Confirm password:</label>
+        <input type="password" id="password2" name="password2" minlength="8" required>
+        <p class="password_message"></p>
+        <br>
+    </div> -->
+    
+    <div class="form-group">
+        <label>Levels you teach:</label>
+        <div class="level-options">
+            <div>
+                <label><input type="checkbox" value="primary" name="levels">Primary</label>
+            </div>
+            <div>
+                <label><input type="checkbox" value="intermediate" name="levels">Intermediate</label>
+            </div>
+            <div>
+                <label><input type="checkbox" value="juniors" name="levels">Junior High School</label>
+            </div> 
+            <div>
+                <label><input type="checkbox" value="seniors" name="levels">Senior High School</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <button class="register-button" type="submit">Create Account</button>
+</div>
+
+<p class="register-terms">By creating an account, you agree to our <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>.</p>

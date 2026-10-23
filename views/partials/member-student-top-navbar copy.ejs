@@ -1,0 +1,18 @@
+<nav class="main-navbar student_top_navbar">
+
+    <% if (currentPage == 'Current Task') { %>
+    <div class="top_navbar_left">
+        <a href="/student-homepage"> Home </a>
+        <div> > </div>
+        <a href="/student-class-page/<%=course_id %>"> <%= course.course_name %> </a>
+        <div> > </div>
+        <div><a> <%=task.task_name %> </a></div>
+    </div>
+    <% } %>
+
+    <div class="top_navbar_middle"></div>
+    <div class="top_navbar_right"></div>
+    <ul>
+        <li><a href="/logout" class="<%= currentPage == 'Log Out' ? 'active' : '' %>">Log Out</a></li>
+    </ul>
+</nav>

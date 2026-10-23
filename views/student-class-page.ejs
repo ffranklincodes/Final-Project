@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add title here</title>
+    <%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/public/css/student.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/popup.css" type="text/css">
+</head>
+<body>
+    <div class="student_main_dashboard">
+        <%- include('partials/member-student-side-navbar.ejs') %>
+        <%- include('partials/member-student-top-navbar copy.ejs') %>
+        <div class="main_student_content_container">
+
+            <h1 class="page_title"><%= course[0].course_name %></h1>
+
+            <div class="student_tasks">
+                <% if (student_tasks.length != 0) {var i = 0; student_tasks.forEach(function(task) { %>
+
+                <div class="tasks_container"><a href="/student-task/<%= courseId %>/<%= task.ID %>"><%= task.task_name %> </a></div>
+
+                <% }  ); i++; } %>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a question - LM</title>
+    <link rel="stylesheet" href="/public/css/teacher.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/popup.css" type="text/css">
+</head>
+<body>
+    <header class="authoring-header">
+        <div class="left-authoring-header">
+            <button type="button" class="back-button" onclick="history.back()">←</button>
+            <h1>Question Title</h1>
+        </div>
+        <div class="authoring-header-right">
+            <button type="submit" form="question_form" class="save-button">Save</button>
+        </div>
+    </header>
+    <div class="add_a_question_container">
+        <div class="form_container">
+            <form action="/question_form" method="POST" id="question_form" onsubmit="saveQuestionContent(event)">
+                <div class="question_meta">
+                    <div class="question_form_details_left">
+                        <label for="description">Description:</label>
+                        <input id = "description" class="description" name="description">
+                    </div>
+                    <div class="question_form_details_right">
+                        <div class="question_form_group sharing-access">
+                            <label for="access">Sharing & Access:</label>
+                            <select id="access" class="access" name="access">
+                                <option value="public" selected>Public</option>
+                                <option value="private">Private</option>
+                                <option value="school">Shared Within School</option>
+                            </select>
+                        </div>
+                        <div class="question_form_group curriculum_strand">
+                            <label>Curriculum Strand:</label>
+                            <button type="button" id="strand_button" onclick="openPopup(strandPopup)">Select Maths Strand</button>
+                        </div>
+                        <div class="question_form_group curriculum_strand">
+                            <label>Year Level:</label>
+                            <button type="button" id="year_level_button" onclick="openPopup(yearLevelPopup)">Select Year Level</button>
+                        </div>
+                        <div class="question_form_group points_number">
+                            <label>Points (Default 1):</label>
+                            <input type="number" name="points_value" id="points_value" class="points_value" value="1">
+                        </div>
+                        <div class="question_form_group question_type">
+                            <label for="question_type">Question Type:</label>
+                            <select id="question_type" class="question_type" name="question_type" required>
+
+                                <% if (!editing) { %>
+                                <option value="" selected disabled hidden>Select question type</option>
+                                <option value="Multiple Choice">Multiple Choice</option>
+                                <option value="True or False">True / False</option>
+                                <option value="Number">Number Box</option>
+                                <% } else {%>
+                                <option value="Multiple Choice" selected>Multiple Choice</option>
+                                <option value="True or False">True / False</option>
+                                <option value="Number">Number Box</option>
+                                <% } %>
+                                
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="question_canvas" id="question_canvas"></div>
+
+                <input type="hidden" name="question_content" id="question_content_input" required>
+                <input type="hidden" name="course_id" value="<%=courseId%>">
+                <input type="hidden" name="task_id" value="<%=taskId%>">
+                <input type="hidden" name="status" value="published">
+        
+            </form>
+        </div>
+
+
+    </div>
+    <div class="mini_popup_container" id = "strand_popup_container">
+        <div class="popup_content popup_page_container">
+            
+            <div>
+                <p class="page_title" style="margin: 0 0; text-align: left; font-size: 200%;">Select Maths Strand</p>
+            </div>
+            <div class="strands_container">
+
+                <% strands.forEach(function (parent) {
+                    if (parent.parent_id === null) {%>
+
+                <div class="strand-group">
+                    <button type="button" class="strand_heading">
+                        <span>▶</span> <%=parent.strand_name %>
+                    </button>
+                    <div class="strand_children hidden">
+                            <% strands.forEach(function(child) {
+                                if(child.parent_id === parent.ID) { %>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="strand"  value="<%= child.ID%>" form="question_form"> <%= child.strand_name%> 
+                                    </label>
+                                </div>
+                            <% } }); %>
+                    </div>
+                </div>
+                <% } }); %>
+                <label>
+                    <button type="button" class="popup_button" id="strand_selected" onclick="updateButtonText('strand', 'strand_button')">Done</button>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="mini_popup_container" id = "year_level_popup_container">
+        <div class="popup_content popup_page_container">
+            
+            <div>
+                <p class="page_title" style="margin: 0 0; text-align: left; font-size: 200%;">Select Year Level Strand</h1>
+            </div>
+            <div>
+                <div>
+                    <label>Primary:</label>
+                    <label>
+                        <input type="radio" name="year_level" value="1" form="question_form">Year 1
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="2" form="question_form">Year 2
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="3" form="question_form">Year 3
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="4" form="question_form">Year 4
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="5" form="question_form">Year 5
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="6" form="question_form">Year 6
+                    </label>
+                </div>
+                <div>
+                    <label>Intermediate:</label>
+                    <label>
+                        <input type="radio" name="year_level" value="7" form="question_form">Year 7
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="8" form="question_form">Year 8
+                    </label>
+                </div>
+                <div>
+                    <label>Junior High School:</label>
+                    <label>
+                        <input type="radio" name="year_level" value="8" form="question_form">Year 9
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="10" form="question_form">Year 10
+                    </label>
+                </div>
+                <div>
+                    <label>Senior High School:</label>
+                    <label>
+                        <input type="radio" name="year_level" value="11" form="question_form">Year 11
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="12" form="question_form">Year 12
+                    </label>
+                    <label>
+                        <input type="radio" name="year_level" value="13" form="question_form">Year 13
+                    </label>
+                </div>
+            </div>
+        <label>
+            <button type="button" class="popup_button" onclick="updateButtonText('year_level', 'year_level_button')">Done</button>
+        </label>
+
+                
+        </div>
+    </div>
+
+    <script src="/public/js/popup.js"></script>
+    <script src="/public/js/questions.js"></script>
+    
+</body>
+</html>

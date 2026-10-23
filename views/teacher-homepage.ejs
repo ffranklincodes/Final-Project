@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Limitless Mathematics</title>
+    <%- include('partials/header.ejs') %>
+    <link href="public/css/popup.css" rel="stylesheet" type="text/css">
+    <link href="/public/css/teacher.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    <%- include('partials/member-teacher-navbar.ejs') %>
+    <div class="user-dashboard-container">
+        <br>
+        <div class="teacher-home-container">
+            <div class="row_horizontal">
+                <div>
+                    <h1>Welcome, <%=userName%>! </h1>
+                </div>
+                <div>
+                    <button type="button" class="popup_button" onclick ="openPopup(miniPopup)">Add New Course</button>
+                </div>
+            </div>
+
+            <div class="courses_container">
+                <% if (courseData.length != 0) {
+                    var i = 0; 
+                    courseData.forEach (function (data) { %>
+                <div class="course-card">
+                            
+
+                                <h2><%= data.course_name %></h2>
+
+                            <a href="/teacher-class-page/<%=data.ID %>" class="link">View Course</a>
+
+                </div>
+                <%  i++;});} %> 
+            </div>
+        </div>
+    </div>
+    
+    <div class="mini_popup_container" id = "mini_popup_container">
+        
+
+        <div class="popup_content popup_page_container">
+            
+            <div>
+                <h1 class="page_title" style="margin: 0 0; text-align: left; font-size: 200%;">Create a New Course</h1>
+            </div>
+            <div class="form_container">
+                <form action="/create-course" method="POST"> 
+                    
+                    <div class="input-container">
+                        <input type="text" name="course_name" id="course_name" placeholder=" " required>
+                        <label for="course_name">Course Name:</label>
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" name="enrollment_code" id="enrollment_code" placeholder=" " required>
+                        <label for="enrollment_code">Enrollment Code:</label>
+
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" name="level" id="level" placeholder=" " required>
+                        <label for="level">Level:</label>
+                    </div>
+
+                    <div class="input-container">
+                        <input type="text" name="subject" id="subject" placeholder=" " required>
+                        <label for="subject">Subject:</label>
+                    </div>
+
+                    <button type="submit" class="popup_button" style="align-self: center;">Create Course</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="public/js/popup.js"></script>
+    
+</body>
+</html>

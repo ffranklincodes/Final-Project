@@ -1,0 +1,9 @@
+<nav class="main-navbar">
+    <ul>
+        <li><a href="/admin-homepage" class="<%= currentPage == 'Admin Home' ? 'active' : '' %>">Home</a></li>
+        <li><a href="/admin-manage-users" class="<%= currentPage == 'Manage Users' ? 'active' : '' %>">Manage Users</a></li>
+        <li><a href="/admin-manage-questions" class="<%= currentPage == 'Manage Questions' ? 'active' : '' %>">Manage Questions</a></li>
+        <li><a href="/admin-manage-messages" class="<%= currentPage == 'Manage Messages' ? 'active' : '' %>">Manage Messages</a></li>
+        <li><a href="/logout" class="<%= currentPage == 'Log Out' ? 'active' : '' %>">Log Out</a></li>
+    </ul>
+</nav>

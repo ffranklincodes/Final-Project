@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worksheet Builder - Questions</title>
+    <%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/public/css/teacher.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/popup.css" type="text/css">
+</head>
+<body>
+    <%- include('partials/member-teacher-navbar.ejs') %>
+    
+    <div class="page-container questions-page">
+        <div class="sub-navbar-header">
+            <%- include('partials/member-teacher-sub-navbar.ejs') %>
+            <div class="worksheet_button_container">
+                <button form="remove-task-questions" type="submit" 
+                <% if (task.status == "published") { %> disabled <%} %>
+                >Remove</button>
+                <button type="button" id="add-question" class="worksheet_button" onclick="openPopup(addQuestionOptions)" 
+                <% if (task.status == "published") { %> disabled <%} %>
+                >Add a question</button>
+            </div>
+        </div>
+        
+        <div class="questions-container">
+            <form id="remove-task-questions" onsubmit="return isChecked('remove')" action="/remove-task-questions" method="POST">
+                <div class="questions">
+                    <% if (questions.length != 0) {%>
+                    <table class="questions_table">
+                        <tr>
+                            <th class="question_checkbox"></th>
+                            <th>Question #</th>
+                            <th class="question_type_header">Question Type</th>
+                            <th class="question_stem_header">Question</th>
+                            <th>Points</th>
+                            <th>Actions</th>
+                        </tr>
+
+                        <% var i = 0; questions.forEach(function(question) { %>
+                        
+                        <tr>
+                            <td class="question_checkbox"><input input type="checkbox" name="question_ids" value="<%= question.ID %>" class="remove_question_check_boxes"> </td>
+                            <td class="question_order">Q<%= i + 1 %></td>
+                            <td class="question_type"><%=question.task_question_type %></td>
+                            <td class="question_stem"><%=question.task_question_stem %></td>
+                            <td class="question_points">1</td>
+                            <td class="actions_cell">
+                                <button type="button" class="action_button" >...</button>
+                                <div class="question_actions_options">
+                                    <button type="button" id="preview_question_button" class="preview_button" data-course-id="<%=course_id%>" data-task-id="<%=task_id%>" data-question-id="<%= question.ID%>" data-page = "task_page" onclick="openPreview(this)">Preview</button>
+                                    <button type="submit"
+                                    <% if (task.status == "published") { %> disabled <%} %>>Remove</button>
+                                </div></td>
+                            </tr>
+                        
+                        <% i++;} ); %>
+
+                    </table>
+                    <%    } %>
+                </div>
+                <input type="hidden" name="course_id" value="<%=course_id%>">
+                <input type="hidden" name="task_id" value="<%=task_id%>">
+            </form>
+            <div class="worksheet_button_container">
+                <button type="button" id="preview_button" class="worksheet_button" data-course-id="<%=course_id%>" data-task-id="<%=task_id%>"></data>Preview Worksheet</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mini_popup_container" id = "add_question_options">
+        <div class="popup_content popup_page_container">
+            <button onclick="location.href='/teacher-search-questions?course_id=<%=course_id%>&task_id=<%=task_id%>'">Search Questions</button>
+            <button onclick="location.href='/add-a-question?course_id=<%=course_id%>&task_id=<%=task_id%>'">Create New Question</button>
+        </div>
+    </div>
+
+    <script src="/public/js/questions.js"></script>
+    <script src="/public/js/popup.js"></script>
+    
+</body>
+</html>

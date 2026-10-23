@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Worksheet Builder</title>
+    <%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/public/css/admin.css" type="text/css">
+    <link href="public/css/popup.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    <%- include('partials/member-admin-navbar.ejs') %>
+
+    <div class="page_container">
+        <div class="buttons_container">
+            <a href="/admin-manage-users"><button type="button" class="btn btn-primary btn-lg">Manage Users</button></a>
+            <a href="/admin-manage-questions"><button type="button" class="btn btn-primary btn-lg">Manage Questions</button></a>
+            <a href="/admin-manage-messages"><button type="button" class="btn btn-primary btn-lg">Manage Messages</button></a>
+        </div>
+    </div>
+
+    
+    
+    <script src="public/js/popup.js"></script>
+    
+</body>
+</html>

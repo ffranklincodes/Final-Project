@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Questions - LM</title>
+    <%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/public/css/teacher.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/popup.css" type="text/css">
+</head>
+<body>
+    <%- include('partials/member-teacher-navbar.ejs') %>
+
+    <div class="search_page_container">
+
+        
+            
+        <form id="teacher-search-questions" action="/teacher-search-questions" method="GET">
+            <div class="search_bar_container">
+                <div class="search_field">
+                    <input type="text" id="question_search" class="question_search" minlength="3" name="keyword" placeholder="Search by keyword ...">
+                </div>
+                <div class="question_form_group curriculum_strand" class="strand_button_container">
+                    <button type="button" id="strand_button" class="strand_button" onclick="openPopup(strandPopup)">Filter Maths Strand</button>
+                </div>
+                <div class="search_button"> 
+                    <button type="submit" class="search_button">Search</button>
+                </div>
+                
+                <input type="hidden" name="task_id" value="<%=taskId%>">
+                <input type="hidden" name="course_id" value="<%=courseId%>">
+            </div>
+        </form>
+
+        <div class="page_navigation_container" style="margin-top: 50px; margin-bottom: 0;">
+            <% if (page > 1) { %>
+                <a href="/teacher-search-questions?course_id=<%=courseId%>&task_id=<%=taskId%>&page=<%= page - 1%>"> &lt; Previous </a>
+            <% } else { %>
+                <span class="disabled">&lt;Previous </span>
+            <% } %>
+
+            <span class="page-number">[<%= page %>]</span>
+
+            <% if (hasNextPage) { %>
+                <a href="/teacher-search-questions?course_id=<%=courseId%>&task_id=<%=taskId%>&page=<%= page + 1%>">Next &gt;</a>
+            <% } else { %>
+                <span class="disabled">Next &gt;</span>
+            <% } %>
+        </div>
+
+        <form onsubmit="return isChecked('add')" action="/add-questions-task" method="POST">
+
+            <table class="questions_table">
+                <tr>
+                    <th class="checkbox"></th>
+                    <th class="question_stem_header">Question</th>
+                    <th>Type</th>
+                    <th>ID</th>
+                    <th>Actions</th>
+                </tr>
+
+                <% if (questions.length != 0) { var i = 0;
+                questions.forEach(function (question) { 
+                    if (i <= 10) { %>
+                <tr>
+                    <td><input type="checkbox" name="question_ids" value="<%= question.ID %>" class="add_question_check_boxes"></td>
+                    <td class="question_stem"><%= question.stem %></td>
+                    <td><%= question.question_type %></td>
+                    <td><%= question.ID %></td>
+                    <td class="actions_cell">
+                        <div class="questions_actions">
+                            <button type="button" id="preview_question_button" class="preview_button" data-course-id="<%=courseId%>" data-task-id="<%=taskId%>" data-question-id="<%= question.ID%>" data-page = "search_page" onclick="openPreview(this)">Preview</button>
+                            <button type="button" class="action_button" >&#9660;</button>
+                            <div class="question_actions_options">
+                                <button type="submit" class="add_question">Add</button>
+                                <button type="button" class="edit_question" data-question-id = "<%= question.ID %>"  data-course-id = "<%=courseId%>" data-user-editing = "teacher">Copy and Edit</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <% } i++; } );  } %>
+            </table>
+            <input type="hidden" name="course_id" value="<%=courseId%>">
+            <input type="hidden" name="task_id" value="<%=taskId%>">
+        </form>
+
+        <div class="page_navigation_container">
+            <% if (page > 1) { %>
+                <a href="/teacher-search-questions?course_id=<%=courseId%>&task_id=<%=taskId%>&page=<%= page - 1%>"> &lt; Previous </a>
+            <% } else { %>
+                <span class="disabled">&lt;Previous </span>
+            <% } %>
+
+            <span class="page-number">[<%= page %>]</span>
+
+            <% if (hasNextPage) { %>
+                <a href="/teacher-search-questions?course_id=<%=courseId%>&task_id=<%=taskId%>&page=<%= page + 1%>">Next &gt;</a>
+            <% } else { %>
+                <span class="disabled">Next &gt;</span>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="mini_popup_container" id = "strand_popup_container" >
+        <div class="popup_content popup_page_container">
+            
+            <div>
+                <p class="page_title" style="margin: 0 0; text-align: left; font-size: 200%;">Select Maths Strand</p>
+            </div>
+            <div class="strands_container">
+
+                <% strands.forEach(function (parent) {
+                    if (parent.parent_id === null) {%>
+
+                <div class="strand-group">
+                    <button type="button" class="strand_heading">
+                        <span>▶</span> <%=parent.strand_name %>
+                    </button>
+                    <div class="strand_children hidden">
+                            <% strands.forEach(function(child) {
+                                if(child.parent_id === parent.ID) { %>
+                                <div class="radio-input-group">
+                                    <label>
+                                        <input type="radio" name="strand"  value="<%= child.ID%>" form="teacher-search-questions"><%= child.strand_name%>
+                                    </label>
+                                </div>
+                            <% } }); %>
+                    </div>
+                </div>
+                <% } }); %>
+                <label>
+                    <button type="button" class="popup_button" id="strand_selected" onclick="updateButtonText('strand', 'strand_button')">Done</button>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/popup.js"></script>
+    <script src="/public/js/questions.js"></script>
+
+</body>
+</html>

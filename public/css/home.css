@@ -1,0 +1,100 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 90%;
+    margin: 30px auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.website_name_logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    align-self: flex-start;
+}
+
+.main_label {
+    border-radius: 10px;
+    background-color: rgb(166, 240, 240);
+    width: fit-content;
+    padding: 5px;
+    color: #034748;
+    font-weight: bold;
+}
+
+.section1 {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    border: solid 2px grey;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+.register_button {
+    padding: 5px 20px;
+    width: fit-content;
+    height: 50px;
+    border-radius: 10px;
+    border: solid 2px #034748;
+    background-color: #034748;
+    font-weight: bold;
+    display: flex;
+    color: white;
+    align-items: center;
+}
+
+.login_button {
+    width: fit-content;
+    height: 50px;
+    border-radius: 10px;
+    border: solid 2px #e58148;;
+    background-color: none;
+    font-weight: bold;
+    display: flex;
+    color: #e58148;
+    align-items: center;
+}
+
+.home_buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.home_buttons a {
+    text-decoration: none;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.top_row {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+}

@@ -1,0 +1,196 @@
+.page_container {
+    display: flex;
+    width: 80%;
+    margin: 50px auto;
+    padding-bottom: 100px;
+    flex-direction: column;
+    overflow: auto;
+}
+
+table th, table td{
+    padding: 10px;
+    border: solid 2px black;
+    border-collapse: collapse;
+    text-align: left;
+    text-wrap: nowrap;
+}
+
+.user_status.active {
+    background-color: #d1fae5;
+    border-radius: 8px;
+    color: #065f46;
+}
+
+.user_status.archived {
+    background-color: #e5e7eb;
+    border-radius: 8px;
+    color: #4b5563;
+}
+
+.user_status.inactive {
+    background-color: #f4e0d4;
+    border-radius: 8px;
+    color: #e76515;
+}
+
+.admin-manage-users-page {
+    width: 80%;
+    display: flex;
+    padding: 20px;
+}
+
+.shadow-box {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.shadow-box {
+    position: relative;
+    font-family: 'Poppins', sans-serif; 
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px 20px 20px;
+    border-radius: 3px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    background-color: white;
+}
+
+.buttons_container {
+    padding-top: 200px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.admin_questions_form {
+    width: 100%;
+}
+
+.question_status_header,
+.question_owner_header,
+.question_strand_header {
+    width: 10%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.question_ID_header {
+    width: 5%;;
+}
+
+.questions_table th {
+    padding: 10px;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.ellipses {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-messages-page {
+    border: 1px solid rgb(182, 179, 179);
+    padding: 20px;
+}
+
+.message-summary {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.centre-section {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.message-card {
+    border: solid 2px rgb(189, 186, 186);
+    border-radius: 5px;
+    margin: 0 20px;
+    padding: 20px;
+}
+
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.view_message_button {
+    background-color: transparent;
+    border: none;
+}
+
+.message-card-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.message_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: solid 2px rgb(158, 151, 151);
+    border-radius: 15px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.message_text_container {
+    width: 600px;
+}
+
+.message_buttons_container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.sender_primary_details p {
+    margin-bottom: 0;
+}
+
+.message_time_details,
+.sender_primary_details {
+    width: 50%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.admin.input_group {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.admin.input_group label {
+    width: 100px;
+    flex-shrink: 0;
+    text-align: left;
+}
+
+.admin.input_group input {
+    box-sizing: border-box;
+    border-radius: 0;
+    padding: 4px 6px;
+    font-size: 14px;
+    height: 50px;
+}

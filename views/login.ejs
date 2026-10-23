@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <%- include('partials/header.ejs') %>
+        <link href="/public/css/login.css" rel="stylesheet" type="text/css">
+        <title>Log In - Limitless Mathematics</title>
+    </head>
+    <body>
+        <%- include('partials/navbar.ejs') %>
+        <br>
+        <div class="page_title"><h1>Log In</h2></div>
+        <div class="page-container">
+            <div class="form_container">
+                <form action="/auth" method="POST">
+                    
+                    <div class="input-container">
+                        <input type="text" id ="email" name="email" placeholder=" " required>
+                        <label for="email">Email Address</label>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="password" name="password" placeholder=" " required>
+                        <label for="password">Password</label>
+                        <button type="button" id="toggle-password" onclick="togglePassword()">SHOW</button>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="rememberUser" name="rememberUser">
+                        <label for="rememberUser">Remember me</label>
+                    </div>
+                    <div>
+                        <button class="login-button" type="submit">LOG IN</button>
+                    </div>
+                    <span><a class="link">FORGOT PASSWORD?</a> | <a href="register" class="link"> CREATE ACCOUNT </a> </span>
+                </form>
+            </div>
+        </div>
+
+        <script src="public/js/login.js"></script>
+    </body>
+
+</html>

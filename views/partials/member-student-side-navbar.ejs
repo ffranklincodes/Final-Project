@@ -1,0 +1,21 @@
+<nav class="main-navbar student_side_navbar">
+    <ul>
+        <li>
+            <a href="/student-homepage" class="<%= currentPage == 'Student Home' ? 'active' : '' %>">
+                <img src="/public/images/Maths logo3.png" class="logo">
+            </a>
+        </li>
+        <li>
+            <a href="/student-homepage" class="<%= currentPage == 'Student Home' ? 'active' : '' %>">Home</a>
+        </li>
+
+        <% if (courses.length != 0) {var i = 0; courses.forEach(function(course) { %>
+        <li><a href="/student-class-page/<%=course.ID %>"> <%= course.course_name %> </a></li>
+        <%}); i++} %>
+
+        <div>
+            <button type="button" onclick="openPopup(miniPopup)" class="join_course_button">Join Course</button>
+        </div>
+
+    </ul>
+</nav>

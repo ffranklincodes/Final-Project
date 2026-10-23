@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Questions -Limitless Mathematics</title>
+    <%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/public/css/teacher.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/popup.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/admin.css" type="text/css">
+
+</head>
+<body>
+    <%- include('partials/member-admin-navbar.ejs') %>
+    <div class="page_container admin-manage-users-page">
+        <h1 class="page_title">Manage Questions</h1>
+        <br>
+
+        <div class="page_navigation_container">
+            <% if (page > 1) { %>
+                <div>
+                    <a href="/admin-manage-questions?page=<%= page - 1 %>"> &lt; Previous </a>
+                </div>
+            <% } else { %>
+                <div>
+                    <span class="disabled">&lt;Previous </span>
+                </div>
+            <% } %>
+
+            <div> <span class="page-number">[<%= page %>]</span> </div>
+
+            <% if (hasNextPage) { %>
+                <div> <a href="/admin-manage-questions?page=<%= page + 1 %>">Next &gt;</a> </div>
+            <% } else { %>
+                <div> <span class="disabled">Next &gt;</span> </div>
+            <% } %>
+        </div>
+                        
+                
+        <div class="form_container admin_questions_form shadow-box">
+        
+                <% if (questions.length != 0) {var i = 0; %>
+
+                <table class="questions_table">
+                    <tr>
+                        <th class="question_ID_header">ID</th>
+                        <th class="question_stem_header">Question</th>
+                        <th class="question_type_header">Question Type</th>
+                        <th class="question_strand_header">Question Strand</th>
+                        <th class="question_status_header">Status</th>
+                        <th class="question_owner_header">Author</th>
+                        <th>Actions</th>
+                    </tr>
+                    
+                    <% questions.forEach(function(question) { %>
+                        <tr>
+                            <form action="/update-questions" method="POST">
+                            <input hidden name="question_id" value="<%=question.ID%>">
+                            <td><%=question.ID%></td>
+                            <td class="question_stem"><%=question.stem%></td>
+                            <td><%=question.question_type%></td>
+                            <td class="ellipses"><%=question.strand%></td>
+                            <td class="ellipses"><%=question.status%></td>
+                            <td class="ellipses"><%=question.author%></td>
+                            <td class="actions_cell">
+                                <button type="button" class="action_button" >&#9660;</button>
+                                <div class="question_actions_options">
+                                        <button type="submit" name="status" value="flagged">Flag question</button>
+                                        <button type="submit" name="status" value="archive">Archive question</button>
+                                        <button type="submit" name="status" value="draft">Set to draft</button>
+                                        <button type="submit" name="status" value="published">Publish question</button>
+                                        <button type="button" class="edit_question" data-question-id = "<%= question.ID %>" data-author-id ="<% question.owner_id%>'' data-user-editing = "admin" >Edit question</button>
+                                </div>
+                            </td>
+                            </form>
+                        </tr>
+                    
+                    <%i++ }); %>
+                </table>
+                <% } %>
+            
+        </div>
+
+        <div class="page_navigation_container">
+            <% if (page > 1) { %>
+                <div>
+                    <a href="/admin-manage-questions?page=<%= page - 1 %>"> &lt; Previous </a>
+                </div>
+            <% } else { %>
+                <div>
+                    <span class="disabled">&lt;Previous </span>
+                </div>
+            <% } %>
+
+            <div> <span class="page-number">[<%= page %>]</span> </div>
+
+            <% if (hasNextPage) { %>
+                <div> <a href="/admin-manage-questions?page=<%= page + 1 %>">Next &gt;</a> </div>
+            <% } else { %>
+                <div> <span class="disabled">Next &gt;</span> </div>
+            <% } %>
+        </div>
+        
+    </div>
+
+    <script src="public/js/popup.js"></script>
+    <script src="/public/js/questions.js"></script>
+    
+</body>
+</html>

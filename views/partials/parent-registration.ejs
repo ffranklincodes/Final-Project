@@ -1,0 +1,61 @@
+<!--Parent/Caregiver registration form -->
+<div id="parent-form" class="parent-form">     
+    <div class="form-group">
+        <label for="salutation">Salutation:</label>
+        <select id="salutation" name="salutation" required>
+            <option value="" disabled selected hidden>-</option>
+            <option value="mr">Mr</option>
+            <option value="mrs">Mrs</option>
+            <option value="ms">Ms</option>
+            <option value="dr">Dr</option>
+            <option value="mx">Mx</option>
+            <option value="other">Other</option>
+        </select>
+        <br>
+    </div>           
+    <div class="form-group">
+        <label for="firstName">First name:</label>
+        <input type="text" id ="firstName" name="firstName" minlength="2" maxlength="56" required>
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last name:</label>
+        <input type="text" id ="lastName" name="lastName" minlength="2" maxlength="56" required>
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="school">Child's School:</label>
+        <input type="text" id="school" name="school" required>
+        <br>
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+    </div>
+
+    <div class="form-group">
+        <label for="password1">Password:</label>
+        <input type="password" id="password1" name="password1" minlength="8" required>
+        <br>
+    </div>
+
+    <div class="form-group">
+        <label for="password2">Confirm password:</label>
+        <input type="password" id="password2" name="password2" minlength="8" required>
+        <br>
+    </div>
+    
+    <div class="form-group">
+        <label>Reason for creating an account:</label>
+        <div class="parent-reason">
+            <textarea type="text" id="reason" name="reason" maxlength="200" required></textarea>
+        </div>
+    </div>
+</div>
+
+<div>
+    <button class="register-button" type="submit">Create Account</button>
+</div>
+
+<p class="register-terms">By creating an account, you agree to our <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>.</p>

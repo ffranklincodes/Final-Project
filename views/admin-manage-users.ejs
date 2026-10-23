@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Worksheet Builder</title>
+    <%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/public/css/teacher.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/popup.css" type="text/css">
+    <link rel="stylesheet" href="/public/css/admin.css" type="text/css">
+
+</head>
+<body>
+    <%- include('partials/member-admin-navbar.ejs') %>
+
+    <div class="page_container admin-manage-users-page">
+        <h1 class="page_title">Manage Users</h1>
+        <br>
+
+        <div class="form-container shadow-box">
+
+            <% if (users.length != 0) { %>
+            <form onsubmit="return isChecked('select')" action="/update-users" method="POST">
+                <table>
+                    <tr>
+                        <th class="checkbox"></th>
+                        <th>User ID</th>
+                        <th>Email Address</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>School</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    <%
+                    var i = 0;
+                    users.forEach(function(user) { %>
+                    <tr>
+                        <td><input type="checkbox" name="user_ids" value="<%= user.ID %>" class="select_user_check_boxes"></td>
+                        <td><%=user.ID%></td>
+                        <td><%=user.email%></td>
+                        <td><%=user.first_name%></td>
+                        <td><%=user.last_name%></td>
+                        <td><%=user.school%></td>
+                        <td><%=user.role%></td>
+                        <td><span class="user_status <%= user.status %>">
+                                <%= user.status %>
+                            </span>
+                        </td>
+                        <td class="actions_cell">
+                            <div class="questions_actions">
+                                <button type="button" class="action_button" >&#9660;</button>
+                                <div class="question_actions_options">
+                                    <button type="submit" name="status" value="archived">Archive User</button>
+                                    <button type="submit" name="status" value="inactive">Set to Inactive</button>
+                                    <button type="submit" name="status" value="active">Set to Active</button>
+                                    <button type="button" class="update_user_button" onclick="openPopup(userDetails)"
+                                        data-user-id = "<%= user.ID %>"
+                                        data-user-email = "<%= user.email %>"
+                                        data-user-first-name = "<%= user.first_name%>"
+                                        data-user-last-name= "<%= user.last_name%>"
+                                        data-user-school = "<%= user.school%>"
+                                        data-user-role = "<%= user.role %>"
+                                        data-user-status = "<%= user.status %>"
+                                    > Update Details</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>   
+                    <%  i++; }); %>
+                </table>
+                <input type="hidden" name="action" value="status">
+            </form>
+            <%}%>
+        </div>
+    </div>
+
+    <div class="mini_popup_container" id = "user_details">
+        <div class="popup_content popup_page_container">
+            <div>
+                <h1 class="page_title" style="margin: 0 0; text-align: left; font-size: 200%;">Edit User Details</h1>
+            </div>
+            <br>
+
+            <div class="form_container">
+                <form action="/update-users" method="POST">
+
+                    <input type="hidden" name="action" value="details">
+                    <input type="hidden" id="popup_user_id" name="user_id">
+
+                    <div class="admin input_group">    
+                        <label>Email Address: </label>
+                        <input type="email" id="popup_email" name="email">
+                    </div>
+
+                    <div class="admin input_group"> 
+                        <label>First Name</label>
+                        <input type="text" id="popup_first_name" name="first_name">
+                    </div>
+
+
+                    <div class="admin input_group"> 
+                        <label>Last Name</label>
+                        <input type="text" id="popup_last_name" name="last_name">
+                    </div>
+
+
+                    <div class="admin input_group"> 
+                        <label>School</label>
+                        <input type="text" id="popup_school" name="school">
+                    </div>
+
+                    <div class="admin input_group"> 
+                        <label>Role</label>
+                        <input type="text" id="popup_role" name="role">
+                    </div>
+
+                    <div class="admin input_group"> 
+                        <label>Status</label>
+                        <input type="text" id="popup_status" name="status">
+                    </div>
+
+                    <button type="submit" class="popup_button" style="align-self: center;">
+                        Update Details
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/popup.js"></script>
+    <script src="/public/js/questions.js"></script>
+    <script src="/public/js/admin.js"></script>
+    
+</body>
+</html>
