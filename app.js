@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var express = require("express");
 var app = express();
 
@@ -2957,7 +2956,3 @@ app.get("/logout", function (req, res) {
 
 app.listen(3000);
 console.log("Web app is running in port 3000");
-
-
-
->>>>>>> bd9f5453353f1bff29df9513174b94aab2f07707
