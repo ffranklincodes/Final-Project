@@ -11,7 +11,6 @@ conn.connect(function(err) {
     console.log('Database connected');
 });
 
-=======
 var mysql = require('mysql2');
 var conn = mysql.createConnection({
     host: 'localhost',
