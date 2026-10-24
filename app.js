@@ -181,7 +181,7 @@ app.post("/auth", function (req, res) {
                                     } else {
                                         console.log("no or multiple student IDs found");
                                         res.send(
-                                            "Error finding teacher profile. Please contact support.",
+                                            "Error finding student profile. Please contact support.",
                                         );
                                     }
                                 },
@@ -1133,7 +1133,7 @@ app.post("/join-course", function (req, res) {
 
                 if (courseResults.length == 0) {
                     console.log("No course found");
-                    return res.send("Database error. Please contact support.");
+                    return res.send("No course found. Please check Course ID and Join Code.");
                 } else if (courseResults.length > 1) {
                     console.log("Multiple courses found");
                 } else if (courseResults.length == 1) {
